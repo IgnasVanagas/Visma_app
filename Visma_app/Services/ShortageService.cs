@@ -116,21 +116,37 @@ namespace Visma_app.Services
 
         private void Load()
         {
-            if (File.Exists(_filePath))
+            try
             {
-                var json = File.ReadAllText(_filePath);
-                _shortages = JsonSerializer.Deserialize<List<Shortage>>(json, _jsonOptions) ?? new List<Shortage>();
+                if (File.Exists(_filePath))
+                {
+                    var json = File.ReadAllText(_filePath);
+                    _shortages = JsonSerializer.Deserialize<List<Shortage>>(json, _jsonOptions) ?? new List<Shortage>();
+                }
+                else
+                {
+                    _shortages = new List<Shortage>();
+                }
             }
-            else
+            catch (Exception ex)
             {
+                Console.WriteLine($"Failed to load shortages: {ex.Message}");
                 _shortages = new List<Shortage>();
             }
         }
 
         private void Save()
         {
-            var json = JsonSerializer.Serialize(_shortages, _jsonOptions);
-            File.WriteAllText(_filePath, json);
+            try
+            {
+                var json = JsonSerializer.Serialize(_shortages, _jsonOptions);
+                File.WriteAllText(_filePath, json);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to save shortages: {ex.Message}");
+            }
         }
+
     }
 }

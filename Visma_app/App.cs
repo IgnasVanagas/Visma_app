@@ -28,29 +28,37 @@ namespace Visma_app
 
             while (true)
             {
-                Console.WriteLine("\nCommands: add | list | delete | exit");
-                Console.Write("Enter command: ");
-                var command = Console.ReadLine()?.ToLower();
-
-                switch (command)
+                try
                 {
-                    case "add":
-                        AddShortage();
-                        break;
-                    case "list":
-                        ListShortages();
-                        break;
-                    case "delete":
-                        DeleteShortage();
-                        break;
-                    case "exit":
-                        return;
-                    default:
-                        Console.WriteLine("Unknown command.");
-                        break;
+                    Console.WriteLine("\nCommands: add | list | delete | exit");
+                    Console.Write("Enter command: ");
+                    var command = Console.ReadLine()?.ToLower();
+
+                    switch (command)
+                    {
+                        case "add":
+                            AddShortage();
+                            break;
+                        case "list":
+                            ListShortages();
+                            break;
+                        case "delete":
+                            DeleteShortage();
+                            break;
+                        case "exit":
+                            return;
+                        default:
+                            Console.WriteLine("Unknown command.");
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
                 }
             }
         }
+
         /// <summary>
         /// Prompts the user for details about a shortage and adds it to the system.
         /// </summary>
