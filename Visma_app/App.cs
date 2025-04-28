@@ -6,6 +6,7 @@ namespace Visma_app
 {
     public class App
     {
+
         private readonly ShortageService _service;
         private string _currentUser = "";
         private bool _isAdmin = false;
@@ -14,7 +15,9 @@ namespace Visma_app
         {
             _service = new ShortageService("shortages.json");
         }
-
+        /// <summary>
+        /// Never ending loop to run the application based on user commands.
+        /// </summary>
         public void Run()
         {
             Console.WriteLine("Welcome to Visma Resource Manager!");
@@ -48,7 +51,9 @@ namespace Visma_app
                 }
             }
         }
-
+        /// <summary>
+        /// Prompts the user for details about a shortage and adds it to the system.
+        /// </summary>
         private void AddShortage()
         {
             Console.Write("Title: ");
@@ -89,7 +94,9 @@ namespace Visma_app
 
             _service.AddShortage(shortage);
         }
-
+        /// <summary>
+        /// Lists shortages based on user-defined filters. If the filters are empty or null, all shortages are listed.
+        /// </summary>
         private void ListShortages()
         {
             Console.WriteLine("\n--- Filters ---");
@@ -117,7 +124,9 @@ namespace Visma_app
                 Console.WriteLine($"{s.Title} - {s.Room} - {s.Category} - Priority: {s.Priority} - Created by: {s.Name} on {s.CreatedOn}");
             }
         }
-
+        /// <summary>
+        /// Prompts the user for details about a shortage to delete and removes it from the system.
+        /// </summary>
         private void DeleteShortage()
         {
             Console.Write("Enter title of the shortage to delete: ");

@@ -24,6 +24,9 @@ namespace Visma_app.Services
             };
             Load();
         }
+        /// <summary>
+        /// Adds a new shortage to the system. If a shortage with the same title and room already exists, it checks for priority.
+        /// </summary>
 
         public void AddShortage(Shortage shortage)
         {
@@ -51,7 +54,9 @@ namespace Visma_app.Services
             Save();
             Console.WriteLine("Shortage added.");
         }
-
+        /// <summary>
+        /// Retrieves a list of shortages based on the provided filters. Admins can see all shortages, while regular users can only see their own.
+        /// </summary>
         public List<Shortage> GetShortages(string user, bool isAdmin, string? title, string? category, string? room, DateTime? startDate, DateTime? endDate)
         {
             var query = _shortages.AsQueryable();
@@ -76,7 +81,9 @@ namespace Visma_app.Services
 
             return query.OrderByDescending(x => x.Priority).ToList();
         }
-
+        /// <summary>
+        /// Deletes a shortage based on the title and room. Only the user who created it or an admin can delete it.
+        /// </summary>
         public void DeleteShortage(string title, string room, string user, bool isAdmin)
         {
             if (!Enum.TryParse<Room>(room, true, out var parsedRoom))
